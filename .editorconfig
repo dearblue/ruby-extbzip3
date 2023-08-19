@@ -1,0 +1,24 @@
+# About this file, see: https://editorconfig.org/
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+tab_width = 8
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+#max_line_length = 160
+
+[*.{c,cc,C,cxx,cpp,h,hh,H,hxx,hpp,inc}]
+indent_size = 4
+
+[{*.rb,Rakefile,rakefile,*.rake,*.gemspec}]
+
+[*.{yaml,yml}]
+trim_trailing_whitespace = false
+
+[*.md]
+trim_trailing_whitespace = false

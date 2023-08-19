@@ -1,0 +1,17 @@
+.*
+*.bak
+*.gem
+*.gemspec
+*.log
+*.o
+*.orig
+*.s
+*.so
+*.tmp
+*~
+/@*
+/doc/
+/lib/1.*
+/lib/2.*
+/lib/3.*
+# Makefile

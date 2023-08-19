@@ -1,0 +1,42 @@
+name: Ruby
+
+on:
+  push:
+    branches: "*"
+  pull_request:
+    branches: "*"
+
+jobs:
+  ubuntu-22-04:
+    runs-on: ubuntu-22.04
+    name: ubuntu-22.04 (ruby-${{ matrix.RUBY_VERSION }})
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        RUBY_VERSION:
+        - "3.0"
+        - "3.1"
+        - "3.2"
+        - "head"
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.RUBY_VERSION }}
+    - name: Install BZip3
+      env:
+        LIBBZIP3_URL: https://github.com/kspalaiologos/bzip3/releases/download/1.3.2/bzip3-1.3.2.tar.gz
+      run: |
+        wget -O- $LIBBZIP3_URL | tar xzf -
+        cd bzip3-1.3.2
+        sh configure --disable-shared
+        make
+        sudo make install
+    - name: Install dependencies
+      run: gem install test-unit
+    - name: Update git submodules
+      run: git submodule update --init --recommend-shallow
+    - name: Run tests
+      run: rake RUBYSET=ruby sofiles test
